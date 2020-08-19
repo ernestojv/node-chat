@@ -16,9 +16,9 @@ const addMessage = (user, message) => {
     });
 }
 
-const getMessages = () => {
+const getMessages = (filterUser) => {
     return new Promise((resolve, reject) => {
-        resolve(store.list());
+        resolve(store.list(filterUser));
     });
 }
 
@@ -30,10 +30,22 @@ const updateMessage = (id, message) => {
         }
         const result = await store.updateMessage(id, message);
         resolve(result);
-    })
+    });
+}
+
+const deleteMessage = (id) => {
+    return new Promise(async (resolve, reject) => {
+        if (!id) {
+            reject('ivalidad id');
+            return false;
+        }
+        const result = await store.deleteMessage(id);
+        resolve(result);
+    });
 }
 module.exports = {
     addMessage,
     getMessages,
     updateMessage,
+    deleteMessage,
 }

@@ -1,6 +1,7 @@
 const { response } = require('express');
 const express = require('express');
-
+const db = require('./db');
+db.connect();
 const app = express();
 
 const router = require('./network/routes');

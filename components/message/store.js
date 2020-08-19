@@ -1,26 +1,31 @@
-const db = require('mongoose');
+
 const Model = require('./model');
-db.Promise = global.Promise;
-db.connect('mongodb+srv://db_nodechat:Ernesto07@cluster0-yuddw.mongodb.net/node-chat?retryWrites=true&w=majority', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-});
 console.log('[db] successful connection')
 const addMessage = (message) => {
     const myMessage = new Model(message);
     myMessage.save();
 }
 
-const getMessages = async () => {
-    const messages = await Model.find();
+const getMessages = async (filterUser) => {
+    let filter = {};
+    if (filterUser !== null) {
+        filter = { user: filterUser };
+    }
+    const messages = await Model.find(filter);
     return messages;
 }
 const updateMessage = async (id, message) => {
     const updatedMessage = await Model.findOneAndUpdate({ _id: id }, { message }, { new: true });
     return updatedMessage;
 }
+
+const deleteMessage = async (id) => {
+    const result = await Model.deleteOne({_id:id});
+    return result;
+}
 module.exports = {
     add: addMessage,
     list: getMessages,
     updateMessage: updateMessage,
+    deleteMessage: deleteMessage,
 }
