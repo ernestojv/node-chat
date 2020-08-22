@@ -1,16 +1,19 @@
-const { response } = require('express');
 const express = require('express');
+const app = express();
+const server = require('http').Server(app);
 const db = require('./db');
 db.connect();
-const app = express();
-
+app.use('/app', express.static('public'));
+const socket = require('./socket');
 const router = require('./network/routes');
 
 app.use(express.json());
-app.use(express.urlencoded({extended : false}));
+app.use(express.urlencoded({ extended: false }));
+
+socket.connect(server);
 
 router(app);
 
-app.listen(3000, () => {
+server.listen(3000, () => {
     console.log("Listening http://localhost:3000");
 });

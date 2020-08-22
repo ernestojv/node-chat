@@ -6,14 +6,13 @@ const controller = require('./controller');
 const router = express.Router();
 
 const storage = multer.diskStorage({
-    destination: "uploads/",
+    destination: "public/files/",
     filename: function (req, file, cb) {
         cb(null, file.fieldname + "-" + Date.now() +
             path.extname(file.originalname))
     }
 });
 const upload = multer({ storage: storage });
-
 router.get('/', async (req, res) => {
     try {
         const filterMessages = req.query.user || null;
@@ -25,10 +24,9 @@ router.get('/', async (req, res) => {
 
 
 });
-
 router.post('/', upload.single('file'), async (req, res) => {
     try {
-        const result = await controller.addMessage(req.body.chat, req.body.user, req.body.message);
+        const result = await controller.addMessage(req.body.chat, req.body.user, req.body.message, req.file);
         response.succes(req, res, result, 201);
     } catch (e) {
         response.error(req, res, 'Invalid data', 400, e);
@@ -36,7 +34,6 @@ router.post('/', upload.single('file'), async (req, res) => {
 
 
 });
-
 router.patch('/:id', async (req, res) => {
     try {
         const result = await controller.updateMessage(req.params.id, req.body.message);
@@ -45,7 +42,6 @@ router.patch('/:id', async (req, res) => {
         response.error(req, res, 'Internal error', 500, e);
     }
 });
-
 router.delete('/:id', async (req, res) => {
     try {
         const result = await controller.deleteMessage(req.params.id);
@@ -54,5 +50,4 @@ router.delete('/:id', async (req, res) => {
         response.error(req, res, 'Internal server error', 500, e);
     }
 })
-
 module.exports = router;
