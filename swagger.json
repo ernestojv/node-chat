@@ -1,0 +1,293 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "A simple chat with Node",
+    "version": "0.1.0",
+    "title": "Node Chat",
+    "contact": {
+      "email": "ernestovanegas9@gmail.com"
+    }
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "user",
+      "description": "Operations about users"
+    },
+    {
+      "name": "message",
+      "description": "Operations about messages"
+    },
+    {
+      "name": "chat",
+      "description": "Operations about chats"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/user": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "List of users",
+        "description": "Get the list of users",
+        "operationId": "listUsers",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Create user",
+        "description": "Create a user in the app",
+        "operationId": "createUser",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Created user object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/message": {
+      "get": {
+        "tags": [
+          "message"
+        ],
+        "summary": "List of users",
+        "description": "Get the list of messages",
+        "operationId": "listMessages",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "message"
+        ],
+        "summary": "Create a message",
+        "description": "Create a message in the app",
+        "operationId": "createMessages",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "upfile",
+            "type": "file",
+            "description": "The file to upload."
+          },
+          {
+            "in": "formData",
+            "name": "chat",
+            "type": "string",
+            "description": "The chat id."
+          },
+          {
+            "in": "formData",
+            "name": "user",
+            "type": "string",
+            "description": "The user id."
+          },
+          {
+            "in": "formData",
+            "name": "message",
+            "type": "string",
+            "description": "The message."
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/message/:id": {
+      "patch": {
+        "tags": [
+          "message"
+        ],
+        "summary": "Update a message",
+        "description": "Update a message in the app",
+        "operationId": "updateMessage",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "upfile",
+            "type": "file",
+            "description": "The file to upload."
+          },
+          {
+            "in": "formData",
+            "name": "chat",
+            "type": "string",
+            "description": "The chat id."
+          },
+          {
+            "in": "formData",
+            "name": "user",
+            "type": "string",
+            "description": "The user id."
+          },
+          {
+            "in": "formData",
+            "name": "message",
+            "type": "string",
+            "description": "The message."
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "message"
+        ],
+        "summary": "Delete a message",
+        "description": "Delete a message of the app",
+        "operationId": "deleteMessage",
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/chat:id": {
+      "get": {
+        "tags": [
+          "chat"
+        ],
+        "summary": "Get a Chat",
+        "description": "Get a chat",
+        "operationId": "listAChat",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/chat": {
+      "post": {
+        "tags": [
+          "chat"
+        ],
+        "summary": "Create Chat",
+        "description": "Create a chat",
+        "operationId": "createChat",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Created user object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Chat"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
+    },
+    "Message": {
+      "type": "object",
+      "properties": {
+        "file": {
+          "type": "string"
+        },
+        "chat": {
+          "type": "string"
+        },
+        "user": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
+    },
+    "Chat": {
+      "type": "object",
+      "properties": {
+        "users": {
+          "type": "object",
+          "properties": {
+            "userOwn": {
+              "type": "string"
+            },
+            "user": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
+    }
+  }
+}

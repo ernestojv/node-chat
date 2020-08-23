@@ -1,0 +1,10 @@
+{
+    "name": "node-chat",
+    "version": 2,
+    "env": {
+        "DB_URL": "mongodb+srv://db_nodechat:Ernesto07@cluster0-yuddw.mongodb.net/node-chat?retryWrites=true&w=majority",
+        "PORT": 3000,
+        "HOST":"http://localhost",
+        "FILE_URL":"http://localhost:3000/app/files/"
+    }
+}
