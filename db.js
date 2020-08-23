@@ -1,7 +1,8 @@
 const db = require('mongoose');
+const config = require('./config');
 db.Promise = global.Promise;
 const connect = async () => {
-    await db.connect('mongodb+srv://db_nodechat:Ernesto07@cluster0-yuddw.mongodb.net/node-chat?retryWrites=true&w=majority', {
+    await db.connect(config.dbUrl, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     });

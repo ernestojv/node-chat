@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const server = require('http').Server(app);
 const db = require('./db');
+const config = require('./config');
 db.connect();
 app.use('/app', express.static('public'));
 const socket = require('./socket');
@@ -14,6 +15,6 @@ socket.connect(server);
 
 router(app);
 
-server.listen(3000, () => {
-    console.log("Listening http://localhost:3000");
+server.listen(config.port, () => {
+    console.log(`Listening ${config.host}:${config.port}`);
 });
