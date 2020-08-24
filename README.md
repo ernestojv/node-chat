@@ -1,12 +1,12 @@
 # Node-chat
 Backend de aplicación de chat.
-## Installation
+## Instalación
 
 ```bash
 $ npm install
 ```
 
-## Running the app
+## Corriendo el API
 
 ```bash
 $ npm run start
