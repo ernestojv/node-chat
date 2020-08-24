@@ -15,3 +15,7 @@ $ npm run start
  - Express
  - Node.js
  - MongoDB
+## Features pendientes
+ - Authentication
+ - Ahthorization
+ - Test
